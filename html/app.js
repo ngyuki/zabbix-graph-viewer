@@ -80,7 +80,17 @@ app.controller('MainCtrl', function ($scope, Zabbix, ZabbixApi, PeriodOptions) {
             filter: { name: $scope.graph.name },
         })
         .success(function (data) {
-            $scope.images = data.result.map(function (v) {
+            $scope.images = data.result
+            .sort(function (a, b) {
+                if (a.hosts[0].host < b.hosts[0].host) {
+                    return -1;
+                } else if (a.hosts[0].host > b.hosts[0].host) {
+                    return +1;
+                } else {
+                    return 0;
+                }
+            })
+            .map(function (v) {
                 var src = Zabbix.url + '/chart2.php?' + $.param({
                     graphid: v.graphid,
                     width: 800,
