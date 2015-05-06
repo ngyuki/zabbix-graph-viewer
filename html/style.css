@@ -1,0 +1,8 @@
+#body [ng-cloak],
+#body .ng-hide {
+    display: none !important;
+}
+
+img {
+    transition: opacity 0.4s;
+}
